@@ -1,12 +1,29 @@
 package projects.java.computers_shop.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Computer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String brand;
     private int memory;
     private String processor;
     private String operatingSystem;
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    protected Computer() {
+    }
 
     public Computer(Long id, String brand, int memory, String processor, String operatingSystem, double price) {
         this.id = id;
