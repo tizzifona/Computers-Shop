@@ -21,7 +21,7 @@ public class Store {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Computer> computers;
 
-    protected Store() {
+    public Store() {
     }
 
     public Store(Long id, String name, String owner, String taxId) {
