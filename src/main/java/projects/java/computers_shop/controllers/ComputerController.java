@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import projects.java.computers_shop.models.Computer;
+import projects.java.computers_shop.dtos.ComputerDTO;
 import projects.java.computers_shop.services.ComputerService;
 
 @RestController
@@ -23,23 +23,30 @@ public class ComputerController {
     private ComputerService computerService;
 
     @GetMapping
-    public ResponseEntity<List<Computer>> listComputers() {
+    public ResponseEntity<List<ComputerDTO>> listComputers() {
         return ResponseEntity.ok(computerService.getAllComputers());
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Computer> addComputer(@RequestBody Computer computer) {
-        return ResponseEntity.ok(computerService.addComputer(computer));
+    public ResponseEntity<ComputerDTO> addComputer(@RequestBody ComputerDTO computerDTO) {
+        return ResponseEntity.ok(computerService.addComputer(computerDTO));
     }
 
     @DeleteMapping("/delete/{brand}")
-    public ResponseEntity<Computer> deleteComputer(@PathVariable String brand) {
-        return ResponseEntity.ok(computerService.deleteComputerByBrand(brand));
+    public ResponseEntity<ComputerDTO> deleteComputer(@PathVariable String brand) {
+        ComputerDTO deletedComputer = computerService.deleteComputerByBrand(brand);
+        if (deletedComputer != null) {
+            return ResponseEntity.ok(deletedComputer);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/find/{brand}")
-    public ResponseEntity<Computer> findComputer(@PathVariable String brand) {
-        return ResponseEntity.ok(computerService.findComputerByBrand(brand));
+    public ResponseEntity<ComputerDTO> findComputer(@PathVariable String brand) {
+        ComputerDTO computer = computerService.findComputerByBrand(brand);
+        if (computer != null) {
+            return ResponseEntity.ok(computer);
+        }
+        return ResponseEntity.notFound().build();
     }
-
 }
