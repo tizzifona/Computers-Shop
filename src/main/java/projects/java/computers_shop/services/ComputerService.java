@@ -11,9 +11,8 @@ import projects.java.computers_shop.repositories.ComputerRepository;
 @Service
 public class ComputerService {
 
-    private ComputerRepository computerRepository;
-
     @Autowired
+    private ComputerRepository computerRepository;
 
     public List<Computer> getAllComputers() {
         return computerRepository.findAll();
