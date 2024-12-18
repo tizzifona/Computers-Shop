@@ -25,13 +25,15 @@ public class Computer {
     protected Computer() {
     }
 
-    public Computer(Long id, String brand, int memory, String processor, String operatingSystem, double price) {
+    public Computer(Long id, String brand, int memory, String processor, String operatingSystem, double price,
+            Store store) {
         this.id = id;
         this.brand = brand;
         this.memory = memory;
         this.processor = processor;
         this.operatingSystem = operatingSystem;
         this.price = price;
+        this.store = store;
     }
 
     public Long getId() {
@@ -80,5 +82,13 @@ public class Computer {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }
