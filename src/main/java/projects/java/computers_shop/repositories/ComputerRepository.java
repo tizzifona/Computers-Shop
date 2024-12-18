@@ -8,7 +8,7 @@ import projects.java.computers_shop.models.Computer;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long> {
 
-    int deleteByBrand(String brand);
+    int deleteByBrandIgnoreCase(String brand);
 
-    Computer findByBrand(String brand);
+    Computer findByBrandIgnoreCase(String brand);
 }
