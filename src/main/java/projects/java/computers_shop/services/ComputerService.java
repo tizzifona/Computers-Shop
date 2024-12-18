@@ -68,7 +68,7 @@ public class ComputerService {
 
     @Transactional
     public ComputerDTO deleteComputerByBrand(String brand) {
-        Computer computer = computerRepository.findByBrand(brand);
+        Computer computer = computerRepository.findByBrandIgnoreCase(brand);
         if (computer != null) {
             computerRepository.delete(computer);
             return new ComputerDTO(
@@ -84,7 +84,7 @@ public class ComputerService {
     }
 
     public ComputerDTO findComputerByBrand(String brand) {
-        Computer computer = computerRepository.findByBrand(brand);
+        Computer computer = computerRepository.findByBrandIgnoreCase(brand);
         if (computer != null) {
             return new ComputerDTO(
                     computer.getId(),
