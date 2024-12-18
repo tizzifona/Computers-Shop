@@ -1,6 +1,8 @@
 package projects.java.computers_shop.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,13 @@ public class StoreService {
             throw new RuntimeException("Store with ID" + id + "not found!");
         }
         Store store = storeOptional.get();
-        return new StoreDTO(store.getName(), store.getOwner(), store.getTaxId());
+        return new StoreDTO(store.getId(), store.getName(), store.getOwner(), store.getTaxId());
     }
 
+    public List<StoreDTO> getAllStores() {
+        return storeRepository.findAll()
+                .stream()
+                .map(store -> new StoreDTO(store.getId(), store.getName(), store.getOwner(), store.getTaxId()))
+                .collect(Collectors.toList());
+    }
 }
