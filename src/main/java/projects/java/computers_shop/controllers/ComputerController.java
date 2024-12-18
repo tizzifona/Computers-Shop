@@ -41,7 +41,7 @@ public class ComputerController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/find/{brand}")
+    @GetMapping("/{brand}")
     public ResponseEntity<ComputerDTO> findComputer(@PathVariable String brand) {
         ComputerDTO computer = computerService.findComputerByBrand(brand);
         if (computer != null) {
