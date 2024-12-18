@@ -1,5 +1,7 @@
 package projects.java.computers_shop.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +32,10 @@ public class StoreController {
     public ResponseEntity<StoreDTO> getStoreById(@PathVariable Long id) {
         StoreDTO storeDTO = storeService.getStoreById(id);
         return ResponseEntity.ok(storeDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StoreDTO>> listStores() {
+        return ResponseEntity.ok(storeService.getAllStores());
     }
 }
