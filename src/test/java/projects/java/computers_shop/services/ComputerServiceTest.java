@@ -3,6 +3,7 @@ package projects.java.computers_shop.services;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.util.Arrays;
 import java.util.List;
@@ -96,4 +97,28 @@ class ComputerServiceTest {
         verify(storeRepository, times(1)).findById(99L);
         verify(computerRepository, never()).save(computer);
     }
+
+    @Test
+    void testAddComputer() {
+
+        ComputerDTO computerDTO = new ComputerDTO(null, "Acer", 16, "Intel i5", "Windows 11", 1000.00, 1L);
+
+        when(storeRepository.findById(1L)).thenReturn(Optional.of(store));
+
+        when(computerRepository.save(any(Computer.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        ComputerDTO result = computerService.addComputer(computerDTO);
+
+        assertThat(result, notNullValue());
+        assertThat(result.brand(), is("Acer"));
+        assertThat(result.memory(), is(16));
+        assertThat(result.processor(), is("Intel i5"));
+        assertThat(result.operatingSystem(), is("Windows 11"));
+        assertThat(result.price(), is(1000.00));
+        assertThat(result.storeId(), is(1L));
+
+        verify(storeRepository, times(1)).findById(1L);
+        verify(computerRepository, times(1)).save(any(Computer.class));
+    }
+
 }
